@@ -44,7 +44,7 @@ export function Home() {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(70vw_50vw_at_50%_-12%,rgba(255,222,150,.16),transparent_66%)]" />
         <div className="relative mx-auto max-w-[1400px] px-4 pt-9 lg:px-8 lg:pt-14">
           <p className="lbl text-paper/50">мультибренд · воронеж · с {SHOP.since}</p>
-          <h1 className="h-display mt-2 max-w-[19ch] text-[clamp(40px,8.4vw,112px)]">
+          <h1 className="h-display mt-2 max-w-[19ch] text-[clamp(38px,6.2vw,82px)]">
             Всё, что здесь стоит, — в одном экземпляре
           </h1>
           <div className="mt-4 flex flex-wrap items-end justify-between gap-5">

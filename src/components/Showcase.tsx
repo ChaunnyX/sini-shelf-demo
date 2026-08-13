@@ -72,12 +72,12 @@ export function Showcase() {
         style={{ background: 'radial-gradient(closest-side, rgba(255,226,164,.30), transparent 74%)' }}
       />
 
-      <div className="relative flex h-[clamp(280px,42vw,460px)] items-end justify-center gap-[3%] pb-10">
+      <div className="relative h-[clamp(260px,38vw,420px)] overflow-hidden">
         {scenes.map((sc, n) => (
           <div key={sc.star.id} className={`absolute inset-0 transition-opacity duration-[900ms] ${n === i ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
-            <Item p={sc.left} depth={0.35} size="22%" x="4%" dim />
-            <Item p={sc.right} depth={0.5} size="21%" x="73%" dim />
-            <Item p={sc.star} depth={1} size="46%" x="29%" star />
+            <Item p={sc.left} depth={0.35} h="52%" x="7%" dim />
+            <Item p={sc.right} depth={0.5} h="48%" x="82%" dim />
+            <Item p={sc.star} depth={1} h="92%" x="46%" star />
           </div>
         ))}
       </div>
@@ -100,15 +100,16 @@ export function Showcase() {
   )
 }
 
-function Item({ p, depth, size, x, star, dim }: { p: Product; depth: number; size: string; x: string; star?: boolean; dim?: boolean }) {
+/** Размер задаём ВЫСОТОЙ: высокая куртка и низкий кроссовок остаются внутри сцены. */
+function Item({ p, depth, h, x, star, dim }: { p: Product; depth: number; h: string; x: string; star?: boolean; dim?: boolean }) {
   return (
     <a
       href={href(`/p/${p.id}`)}
-      className="group absolute bottom-0 block"
+      className="group absolute bottom-3 flex -translate-x-1/2 flex-col items-center"
       style={{
         left: x,
-        width: size,
-        transform: `translate3d(calc(var(--px) * ${18 * depth}px), calc(var(--py) * ${10 * depth}px), 0)`,
+        height: h,
+        transform: `translate3d(calc(-50% + var(--px) * ${18 * depth}px), calc(var(--py) * ${8 * depth}px), 0)`,
       }}
     >
       <img
@@ -116,22 +117,25 @@ function Item({ p, depth, size, x, star, dim }: { p: Product; depth: number; siz
         alt={p.title}
         width={900}
         height={900}
-        className={`w-full object-contain transition-transform duration-500 group-hover:-translate-y-2 ${dim ? 'opacity-45 blur-[0.6px] group-hover:opacity-80' : ''}`}
+        className={`h-full w-auto max-w-none object-contain transition-transform duration-500 group-hover:-translate-y-2 ${
+          dim ? 'opacity-40 group-hover:opacity-75' : ''
+        }`}
         style={{ filter: star ? 'drop-shadow(0 26px 22px rgba(0,0,0,.55))' : 'drop-shadow(0 14px 14px rgba(0,0,0,.5))' }}
       />
       {star && (
-        <span className="absolute -right-2 top-[18%] flex flex-col items-center">
-          <span className="h-8 w-px bg-paper/40" />
-          <span className="num border border-ink/15 bg-paper px-2 py-1 text-[10px] font-bold text-ink shadow-[0_6px_14px_-6px_rgba(0,0,0,.9)]">
-            {money(p.price)}
+        <>
+          <span className="absolute right-[-14%] top-[12%] flex flex-col items-center">
+            <span className="h-7 w-px bg-paper/40" />
+            <span className="num border border-ink/15 bg-paper px-2 py-1 text-[10px] font-bold text-ink shadow-[0_6px_14px_-6px_rgba(0,0,0,.9)]">
+              {money(p.price)}
+            </span>
+            <span className="num mt-1 bg-volt px-1.5 py-[3px] text-[9px] font-bold text-ink">{p.sizes[0]?.label}</span>
           </span>
-          <span className="num mt-1 bg-volt px-1.5 py-[3px] text-[9px] font-bold text-ink">
-            {p.sizes[0]?.label}
-          </span>
-        </span>
-      )}
-      {star && (
-        <span className="absolute inset-x-[18%] -bottom-3 block h-3" style={{ background: 'radial-gradient(closest-side, rgba(0,0,0,.7), transparent 76%)' }} />
+          <span
+            className="absolute inset-x-[-6%] bottom-[-10px] block h-3"
+            style={{ background: 'radial-gradient(closest-side, rgba(0,0,0,.7), transparent 76%)' }}
+          />
+        </>
       )}
     </a>
   )
