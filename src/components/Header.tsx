@@ -67,7 +67,9 @@ export function Header() {
       {/* Одна конкретная выгода — статичной строкой, читаемой, а не бегущей */}
       <div className="bg-ink text-paper">
         <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-3 px-4 py-1.5 lg:px-8">
-          <p className="lbl text-paper/70">Воронеж · Орджоникидзе 2/4 · примерка в магазине</p>
+          <p className="lbl truncate text-paper/70">
+            Воронеж · Орджоникидзе 2/4<span className="hidden sm:inline"> · примерка в магазине</span>
+          </p>
           <p className="lbl hidden text-volt sm:block">Промокод SINI2026 — −5% на первый заказ</p>
         </div>
       </div>
@@ -102,14 +104,12 @@ export function Header() {
                 mySize ? 'border-ink bg-volt font-bold' : 'border-line bg-card hover:border-ink'
               }`}
             >
-              {mySize ? (
-                <>
-                  <span>МОЙ РАЗМЕР {mySize}</span>
-                  <span className="text-ink/60">· {mySizeCount}</span>
-                </>
-              ) : (
-                'МОЙ РАЗМЕР'
-              )}
+              {/* На узком экране шапке хватает короткой формы */}
+              <span className="whitespace-nowrap">
+                <span className="hidden sm:inline">МОЙ РАЗМЕР </span>
+                {mySize ?? <span className="sm:hidden">РАЗМЕР</span>}
+              </span>
+              {mySize && <span className="whitespace-nowrap text-ink/60">· {mySizeCount}</span>}
             </button>
 
             <button onClick={() => setOpenSearch(true)} aria-label="Поиск" className="grid h-9 w-9 place-items-center border border-line bg-card hover:border-ink">
